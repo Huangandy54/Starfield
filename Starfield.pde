@@ -14,17 +14,21 @@ for (int i = 0; i < stars.length; ++i) {
 }
 void mouseClicked(){
   stars = new NormalParticle[100];
+  
   for (int i = 0; i < stars.length; ++i) {
    stars[i]=new NormalParticle(mouseX,mouseY);
   }
+
 
 }
 void draw()
 {
   background(0);
+
   for (int i = 0; i < stars.length; ++i) {
    stars[i].show();
    stars[i].move();
+   stars[i].ret();
   }
 }
 interface Particle
@@ -52,6 +56,12 @@ class NormalParticle
   void show(){
     fill(pcolor);
     ellipse((float)pX, (float)pY, (float)psize, (float)psize);
+  }
+  void ret(){
+    if(pX<0||pX>500||pY<0||pY>500){
+      pX=mouseX;
+      pY=mouseY;
+    }
   }
 }
 
