@@ -1,24 +1,36 @@
 Particle [] stars;
+Ring [] storm;
 void setup()
 {
   size(500, 500);
-  background(0);
-  frameRate(100);
+
+  //frameRate(100);
 stars = new Particle[500];
-for (int i = 1; i < stars.length; ++i) {
+for (int i = 2; i < stars.length; ++i) {
    stars[i]=new NormalParticle();
    stars[0]=new OddballParticle();
+   stars[1]=new JumboParticle();
+  }
+  storm = new Ring[500];
+  for(int a = 0; a < storm.length; a++) {
+    storm[a] = new Ring(); 
   }
 }
 
 void draw()
 {
-  background(0);
+   fill(0,0,0,20);
+   rect(0,0,500,500);
 
   for (int i = 0; i < stars.length; ++i) {
    stars[i].show();
    stars[i].move();
    stars[i].ret();
+  }
+  for(int a = 0;a  <storm.length; a++) {
+    storm[a].move();
+    storm[a].show();
+    storm[a].ret();
   }
 }
 interface Particle
@@ -33,9 +45,9 @@ class NormalParticle implements Particle
   double pX,pY,pSpeed,pAngle;
   int pcolor,psize;
   NormalParticle(){
-    pcolor=color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
-    psize=5;
-    pSpeed=5;
+    pcolor=color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255),50);
+    psize=10;
+    pSpeed=10;
     pX=250;
     pY=250;
     pAngle = Math.PI*2*Math.random();
@@ -100,9 +112,10 @@ class OddballParticle implements Particle//uses an interface
 }
 class JumboParticle implements Particle//uses inheritance
 {
-  int oX,oY,r,g,b;
+  int oX,oY,r,g,b,s,ds;
   JumboParticle(){
-    
+    s=1;
+    ds=4;
     oX=250;
     oY=250;
     r=(int)(Math.random()*255);
@@ -112,33 +125,45 @@ class JumboParticle implements Particle//uses inheritance
   }
 
   public void move() {
-    int direction = (int)(Math.random()*4);
-
-      if(direction == 0){
-        oX = oX + 8; //right
-    }
-    else if(direction == 1)
-    {
-      oX = oX - 8; //left
-    }
-    else if(direction == 2)
-    {
-      oY = oY + 8; //down
-    }
-    else // direction must be 3
-    {
-      oY = oY - 8; //up
-    }
+    s=s+ds;
   }
   public void show() {
-    fill(r, g, b);
-    for (int s = 20; s <= 200;s+=20 ) {
-    ellipse(oX, oY, s, s);
-    }    
+    fill(r, g, b,20);
+    ellipse(oX, oY, s, s);   
   }
   public void ret() {
-    if(s>=200){
-      s=20;
+    if(s>=500){
+       ds=-4;
     }
-    }//PROBLEM
+    if(s<=0){
+       ds=4;
+    }
+    }
   }
+  
+class Ring
+{
+  //class member variable declarations
+  double pX,pY,pSpeed,pAngle;
+  int pcolor,psize;
+  Ring(){
+    pcolor=color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
+    psize=5;
+    pSpeed=3.5;
+    pX=250;
+    pY=250;
+    pAngle = Math.PI*2*Math.random();
+  }
+  public void move(){
+    pX = pX + Math.cos(pAngle)*pSpeed; 
+    pY = pY + Math.sin(pAngle)*pSpeed;
+    pAngle = pAngle + 0.027;
+  }
+  public void show(){
+    fill(pcolor);
+    ellipse((float)pX, (float)pY, (float)psize, (float)psize);
+  }
+  public void ret(){
+    
+  }
+}
