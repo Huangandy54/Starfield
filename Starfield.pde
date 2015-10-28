@@ -19,8 +19,9 @@ for (int i = 2; i < stars.length; ++i) {
 
 void draw()
 {
-   fill(0,0,0,20);
-   rect(0,0,500,500);
+  noStroke();
+  fill(0,0,0,20);
+  rect(0,0,500,500);
 
   for (int i = 0; i < stars.length; ++i) {
    stars[i].show();
