@@ -149,7 +149,7 @@ class Ring
   Ring(){
     pcolor=color((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
     psize=5;
-    pSpeed=3.5;
+    pSpeed=(Math.random()*10)+5;;
     pX=250;
     pY=250;
     pAngle = Math.PI*2*Math.random();
