@@ -108,6 +108,9 @@ class OddballParticle implements Particle//uses an interface
     if(bX<0||bX>500||bY<0||bY>500){
       bX=250;
       bY=250;
+      r=(int)(Math.random()*255);
+      g=(int)(Math.random()*255);
+      b=(int)(Math.random()*255);
     }
   }
 }
@@ -134,10 +137,16 @@ class JumboParticle implements Particle//uses inheritance
   }
   public void ret() {
     if(s>=500){
-       ds=-4;
+      ds=-4;
+      r=(int)(Math.random()*255);
+      g=(int)(Math.random()*255);
+      b=(int)(Math.random()*255);
     }
     if(s<=0){
-       ds=4;
+      ds=4;
+      r=(int)(Math.random()*255);
+      g=(int)(Math.random()*255);
+      b=(int)(Math.random()*255);
     }
     }
   }
